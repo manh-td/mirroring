@@ -4,8 +4,8 @@ import json
 import subprocess
 
 LOGS_DIR = "./logs"
-DATA_PATH = "dataset/all_java_160924.json"
-BASH_SCRIPT_PATH = "mirroring.sh"
+DATA_PATH = "/path/to/data"
+BASH_SCRIPT_PATH = "./mirroring.sh"
 
 if not os.path.exists(LOGS_DIR):
     os.makedirs(LOGS_DIR)
