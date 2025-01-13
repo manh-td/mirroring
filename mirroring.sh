@@ -5,7 +5,7 @@ OLD_REPO_URL=$1 # Replace with your old repo URL
 echo "URL: $OLD_REPO_URL"
 OLD_REPO_NAME=$(basename "$OLD_REPO_URL") # Extract repo name from URL
 echo "OLD_REPO_NAME: $OLD_REPO_NAME"
-NEW_REPO_URL="https://smu.manhtd:<github-token>@gitlab.com/smu.manhtd/$OLD_REPO_NAME.git" # Replace with your new repo URL
+NEW_REPO_URL="https://<username>:<github-token>@gitlab.com/<username>/$OLD_REPO_NAME.git" # Replace with your new repo URL
 
 # Step 2: Clone the old repository as a bare clone
 echo "CMD: git clone --bare $OLD_REPO_URL"
