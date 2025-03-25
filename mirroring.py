@@ -1,10 +1,9 @@
 import logging
 import os
-import json
 import subprocess
 
 LOGS_DIR = "./logs"
-DATA_PATH = "/path/to/data"
+URLS_FILE_PATH = "./sample-input.txt"  # Load URLs from this text file
 BASH_SCRIPT_PATH = "./mirroring.sh"
 
 if not os.path.exists(LOGS_DIR):
@@ -20,28 +19,23 @@ logging.basicConfig(
     ]
 )
 
-def load_json(file_path):
+def load_urls(file_path):
+    """Loads a list of unique URLs from a text file."""
     try:
-        with open(file_path, 'r') as json_file:
-            data = json.load(json_file)
-        return data
+        with open(file_path, 'r') as file:
+            urls = {line.strip() for line in file if line.strip()}  # Use a set to remove duplicates
+        return list(urls)
     except FileNotFoundError:
         logging.error(f"Error: File '{file_path}' not found.")
-    except json.JSONDecodeError as e:
-        logging.error(f"Error: Failed to decode JSON. {e}")
+        return []
     except Exception as e:
         logging.error(f"An unexpected error occurred: {e}")
-        
+        return []
+
 if __name__ == "__main__":
-    data = load_json(DATA_PATH)
-
-    url_list = []
-    for datapoint in data:
-        url = datapoint.get("commit_URL").split("/")[:-2]
-        url = "/".join(url)
-        if url not in url_list:
-            url_list.append(url)
-
+    url_list = load_urls(URLS_FILE_PATH)
+    
+    logging.info(url_list)
     logging.info(f"Number of unique URLs: {len(url_list)}")
 
     # Loop through the URL list and execute the script
